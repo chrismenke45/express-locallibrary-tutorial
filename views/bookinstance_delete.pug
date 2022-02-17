@@ -1,0 +1,28 @@
+extends layout
+
+block content
+    h1 #{title}: #{bookinstance.name}
+    if bookinstance.status=='Available'
+        p.text-success #{bookinstance.status}
+        | #{bookinstance.due_back}
+        br
+        | Imprint: #{bookinstance.imprint}
+    else if bookinstance.status=='Maintenance'
+        p.text-danger #{bookinstance.status}
+        | #{bookinstance.due_back}
+        br
+        | Imprint: #{bookinstance.imprint}
+    else
+        p.text-warning #{bookinstance.status}
+        | #{bookinstance.due_back}
+        br
+        | Imprint: #{bookinstance.imprint}
+
+    p Do you really want to delete this Book Instance?
+
+    form(method='POST' action='')
+        div.form-group
+            input#bookinstanceid.form-control(type='hidden',name='bookinstanceid', required='true', value=bookinstance._id )
+            input#bookid.form-control(type='hidden',name='bookid', required='true', value=bookinstance.book )
+
+        button.btn.btn-primary(type='submit') Delete
